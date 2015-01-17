@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapple"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
+        <activity
+            android:name="com.zhang.myapple.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--横屏android:launchMode="singleTask" android:screenOrientation="landscape"-->
+        <activity
+              
+            android:name="com.zhang.myapple.GameActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+          
+            </intent-filter>
+        </activity>
+        <activity
+              
+            android:name="com.zhang.myapple.HelpActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+          
+            </intent-filter>
+        </activity>
+         <service
+            android:name="com.zhang.myapple.MusicServer">
+            <intent-filter>
+                <action android:name="com.zhang.myapple.MUSIC" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyApple</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="start">开始游戏</string>
+    <string name="exit">退出游戏</string>
+    <string name="closemusic">关闭声音</string>
+    <string name="help"> 游戏帮助</string>
+	<string name="helptext">开始游戏切一个水果得1分，切到3次炸弹或者时间到则游戏结束，祝您玩的愉快</string>
+	
+</resources>

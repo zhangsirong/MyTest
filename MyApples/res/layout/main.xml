@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainback"
+    android:gravity="center|center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.zhang.myapple.MainActivity" >
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/start"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/exit"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+	
+	<Button
+        android:id="@+id/help"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/help"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <ToggleButton
+         android:id="@+id/music"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+         android:textColor="@android:color/holo_red_light"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        android:textOff="开启声音"
+        android:textOn="关闭声音" />
+
+</LinearLayout>
