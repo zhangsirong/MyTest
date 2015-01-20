@@ -7,7 +7,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 
-public class Setup4Activity extends Activity {
+public class Setup4Activity extends BaseSetupActivity {
 	SharedPreferences sp;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,20 +19,23 @@ public class Setup4Activity extends Activity {
 	 * 下一步
 	 * @param view
 	 */
-	public void next(View view){
+	public void showNext() {
 		Editor editor = sp.edit();
-		editor.putBoolean("config", false);
-		Intent intent = new Intent(this,HomeActivity.class);
+		editor.putBoolean("configed", true);
+		editor.commit();
+		Intent intent = new Intent(this,LostFindActivity.class);
 		startActivity(intent);
 		finish();
+		overridePendingTransition(R.anim.tran_in, R.anim.tran_out);
 	}
 	/**
 	 * 上一步
 	 * @param view
 	 */
-	public void pre(View view){
+	public void showPre() {
 		Intent intent = new Intent(this,Setup3Activity.class);
 		startActivity(intent);
 		finish();
+		overridePendingTransition(R.anim.tran_pre_in, R.anim.tran_pre_out);
 	}
 }
