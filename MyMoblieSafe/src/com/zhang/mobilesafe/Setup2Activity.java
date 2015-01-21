@@ -7,6 +7,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.zhang.mobilesafe.ui.SettingItemView;
 import com.zhang.mobliesafe.R;
@@ -61,6 +62,14 @@ public class Setup2Activity extends BaseSetupActivity {
 	 */
 	@Override
 	public void showNext() {
+		//取出是否绑定SIM卡
+		String sim = sp.getString("sim", null);
+		if(TextUtils.isEmpty(sim)){
+			//没有绑定
+			Toast.makeText(this, "sim卡没有绑定", 1).show();
+			return;
+		}
+		
 		Intent intent = new Intent(this,Setup3Activity.class);
 		startActivity(intent);
 		finish();
