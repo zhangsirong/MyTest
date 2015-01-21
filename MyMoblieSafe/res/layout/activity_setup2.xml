@@ -25,6 +25,7 @@
     
     
     <com.zhang.mobilesafe.ui.SettingItemView
+        android:id="@+id/siv_setup2_sim"
         zhang:title="点击绑定sim卡"
         zhang:desc_on="sim卡已绑定"
         zhang:desc_off="sim卡没有绑定"

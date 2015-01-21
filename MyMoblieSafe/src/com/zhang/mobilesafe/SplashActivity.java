@@ -1,4 +1,4 @@
-package com.zhang.mobliesafe;
+package com.zhang.mobilesafe;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.zhang.mobilesafe.utils.StreamTools;
+import com.zhang.mobliesafe.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

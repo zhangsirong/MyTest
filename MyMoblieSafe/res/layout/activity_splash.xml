@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/luncher_bg"
-    tools:context="com.zhang.mobliesafe.SplashActivity"
+    tools:context="com.zhang.mobilesafe.SplashActivity"
     android:id="@+id/rl_root_splash" >
 
     <TextView

@@ -1,4 +1,4 @@
-package com.zhang.mobliesafe;
+package com.zhang.mobilesafe;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.zhang.mobilesafe.ui.SettingItemView;
+import com.zhang.mobliesafe.R;
 
 public class SettingActivity extends Activity {
 	private SettingItemView siv_update;

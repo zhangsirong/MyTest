@@ -1,5 +1,6 @@
-package com.zhang.mobliesafe;
+package com.zhang.mobilesafe;
 import com.zhang.mobilesafe.utils.MD5Utils;
+import com.zhang.mobliesafe.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
