@@ -1,6 +1,6 @@
 package com.zhang.mobilesafe.ui;
 
-import com.zhang.mobliesafe.R;
+import com.zhang.mobilesafe.R;
 
 import android.content.Context;
 import android.util.AttributeSet;

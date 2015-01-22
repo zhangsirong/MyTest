@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.zhang.mobilesafe.R;
 import com.zhang.mobilesafe.ui.SettingItemView;
-import com.zhang.mobliesafe.R;
 
 public class Setup2Activity extends BaseSetupActivity {
 	private SettingItemView siv_setup2_sim;

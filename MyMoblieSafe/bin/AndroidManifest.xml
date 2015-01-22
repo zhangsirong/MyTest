@@ -24,6 +24,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
         <activity
             android:name="com.zhang.mobilesafe.SplashActivity"
             android:label="@string/app_name"
@@ -42,6 +43,23 @@
         <activity android:name="com.zhang.mobilesafe.Setup3Activity"/>
         <activity android:name="com.zhang.mobilesafe.Setup4Activity"/>
         <activity android:name="com.zhang.mobilesafe.SelectContactActivity"/>
+        <activity android:name="com.zhang.mobilesafe.AtoolsActivity"/>
+   		<activity android:name="com.zhang.mobilesafe.NumberAddressQueryActivity"/>
+   		<service android:name="com.zhang.mobilesafe.service.GPSService"></service>
+   		<receiver android:name="com.zhang.mobilesafe.receiver.BootCompleteReceiver">
+        	<intent-filter>
+            	<action android:name="android.intent.action.BOOT_COMPLETED"/>
+        	</intent-filter>
+    	</receiver>
+    	
+     	 <receiver android:name="com.itheima.mobilesafe.receiver.SMSReceiver">
+            <intent-filter android:priority="1000" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+        
+        
     </application>
+    
 
 </manifest>

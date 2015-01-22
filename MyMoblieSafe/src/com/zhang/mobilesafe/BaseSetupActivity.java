@@ -1,6 +1,6 @@
 package com.zhang.mobilesafe;
 
-import com.zhang.mobliesafe.R;
+import com.zhang.mobilesafe.R;
 
 import android.app.Activity;
 import android.content.Intent;

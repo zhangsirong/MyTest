@@ -1,6 +1,7 @@
 package com.zhang.mobilesafe;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -12,9 +13,6 @@ import net.tsz.afinal.http.AjaxCallBack;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.zhang.mobilesafe.utils.StreamTools;
-import com.zhang.mobliesafe.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -37,6 +35,13 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.zhang.mobilesafe.R;
+import com.zhang.mobilesafe.utils.StreamTools;
+
+
+
+
 
 public class SplashActivity extends Activity {
 
@@ -64,6 +69,9 @@ public class SplashActivity extends Activity {
 		tv_splash_version.setText("版本号" + getVersionName());
 		tv_update_info = (TextView) findViewById(R.id.tv_update_info);
 		boolean update = sp.getBoolean("update", false);
+		//copy数据库
+		copyDB();
+		
 		if(update){
 			// 检查升级
 			checkUpdate();
@@ -85,7 +93,36 @@ public class SplashActivity extends Activity {
 		aa.setDuration(500);
 		findViewById(R.id.rl_root_splash).startAnimation(aa);
 	}
-
+	/**
+	 * 把address.db拷贝到我们的/data/data/包名/files/address.db
+	 */
+	private void copyDB() {
+		//只要你拷贝了一次，我就不要你再拷贝了
+		try {
+			File file = new File(getFilesDir().getAbsolutePath(), "address.db");
+			Log.i(TAG, getFilesDir().getAbsolutePath());
+			if(file.exists()&&file.length()>0){
+				//正常了，就不需要拷贝了
+				Log.i(TAG, "正常了，就不需要拷贝了");
+			}else{
+				InputStream is = getResources().openRawResource(R.raw.address);
+				FileOutputStream fos = new FileOutputStream(file);
+				byte[] buffer = new byte[1024];
+				int len = 0;
+				while((len = is.read(buffer))!= -1){
+					fos.write(buffer, 0, len);
+				}
+				fos.close();
+				is.close();
+			}
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	private Handler handler = new Handler() {
 
 		@Override

@@ -1,6 +1,6 @@
 package com.zhang.mobilesafe;
+import com.zhang.mobilesafe.R;
 import com.zhang.mobilesafe.utils.MD5Utils;
-import com.zhang.mobliesafe.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -66,6 +66,10 @@ public class HomeActivity extends Activity {
 				case 0://进入手机防盗
 					showLostFindDialog();
 					
+					break;
+				case 7://进入高级工具
+					Intent intents = new Intent(HomeActivity.this,AtoolsActivity.class);
+					startActivity(intents);
 					break;
 				default:
 					break;

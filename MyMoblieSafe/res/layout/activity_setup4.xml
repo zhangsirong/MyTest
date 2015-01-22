@@ -15,6 +15,7 @@
      	android:text="4.恭喜您设置完成"
       />
  	<CheckBox
+ 	    android:id="@+id/cb_proteting"
  	    android:text="您没有开启防盗保护"
  	    android:layout_width="fill_parent"
      	android:layout_height="wrap_content"/>
