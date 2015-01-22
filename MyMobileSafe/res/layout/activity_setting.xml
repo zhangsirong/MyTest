@@ -16,15 +16,27 @@
         android:textSize="22sp" />
 
     <com.zhang.mobilesafe.ui.SettingItemView
-        zhang:title="设置自动更新"
-        zhang:desc_on="设置自动更新已经开启"
-        zhang:desc_off="设置自动更新已经关闭"
         android:id="@+id/siv_update"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        zhang:desc_off="设置自动更新已经关闭"
+        zhang:desc_on="设置自动更新已经开启"
+        zhang:title="设置自动更新" >
+    </com.zhang.mobilesafe.ui.SettingItemView>
+
+    <com.zhang.mobilesafe.ui.SettingItemView
+        android:id="@+id/siv_show_address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        zhang:desc_off="号码归属地显示已经关闭"
+        zhang:desc_on="号码归属地显示已经开启"
+        zhang:title="号码归属地显示" >
+    </com.zhang.mobilesafe.ui.SettingItemView>
+
+    <com.zhang.mobilesafe.ui.SettingClickView
+        android:id="@+id/scv_changebg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
-    </com.zhang.mobilesafe.ui.SettingItemView>
-    
-    
-   
+    </com.zhang.mobilesafe.ui.SettingClickView>
 
 </LinearLayout>
