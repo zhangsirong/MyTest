@@ -1,7 +1,5 @@
 package com.zhang.mobilesafe;
 
-import com.zhang.mobilesafe.R;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -9,6 +7,8 @@ import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import com.zhang.mobliesafe.R;
 
 public class Setup4Activity extends BaseSetupActivity {
 	

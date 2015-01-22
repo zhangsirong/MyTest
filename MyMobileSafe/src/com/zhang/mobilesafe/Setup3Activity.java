@@ -1,8 +1,5 @@
 package com.zhang.mobilesafe;
 
-import com.zhang.mobilesafe.R;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -10,6 +7,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.zhang.mobliesafe.R;
 
 public class Setup3Activity extends BaseSetupActivity {
 	

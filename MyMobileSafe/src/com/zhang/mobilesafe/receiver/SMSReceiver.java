@@ -1,19 +1,18 @@
 package com.zhang.mobilesafe.receiver;
 
 
-import com.zhang.mobilesafe.R;
-import com.zhang.mobilesafe.service.GPSService;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.sax.StartElementListener;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.zhang.mobilesafe.service.GPSService;
+import com.zhang.mobliesafe.R;
 
 public class SMSReceiver extends BroadcastReceiver {
 	

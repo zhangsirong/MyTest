@@ -1,7 +1,4 @@
 package com.zhang.mobilesafe;
-import com.zhang.mobilesafe.R;
-import com.zhang.mobilesafe.utils.MD5Utils;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -23,6 +20,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.zhang.mobilesafe.utils.MD5Utils;
+import com.zhang.mobliesafe.R;
 
 public class HomeActivity extends Activity {
 	

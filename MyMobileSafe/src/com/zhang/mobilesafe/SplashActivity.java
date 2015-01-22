@@ -36,8 +36,8 @@ import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zhang.mobilesafe.R;
 import com.zhang.mobilesafe.utils.StreamTools;
+import com.zhang.mobliesafe.R;
 
 
 

@@ -1,13 +1,13 @@
 package com.zhang.mobilesafe.ui;
 
-import com.zhang.mobilesafe.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.zhang.mobliesafe.R;
 
 /**
  * 我们自定义的组合控件，它里面有两个TextView ，还有一个CheckBox,还有一个View

@@ -1,15 +1,9 @@
 package com.zhang.mobilesafe;
 
-import com.zhang.mobilesafe.R;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.GestureDetector.OnGestureListener;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.View;
+
+import com.zhang.mobliesafe.R;
 
 public class Setup1Activity extends BaseSetupActivity {
 	

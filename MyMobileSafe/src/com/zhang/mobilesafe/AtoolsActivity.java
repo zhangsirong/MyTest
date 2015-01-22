@@ -1,11 +1,12 @@
 package com.zhang.mobilesafe;
 
+import com.zhang.mobliesafe.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.zhang.mobilesafe.R;
 
 public class AtoolsActivity extends Activity {
 	@Override

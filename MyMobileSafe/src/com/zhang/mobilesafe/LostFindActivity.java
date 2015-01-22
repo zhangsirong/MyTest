@@ -1,12 +1,12 @@
 package com.zhang.mobilesafe;
 
-import com.zhang.mobilesafe.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+
+import com.zhang.mobliesafe.R;
 
 public class LostFindActivity extends Activity{
 	
