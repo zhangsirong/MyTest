@@ -97,7 +97,7 @@ public class SplashActivity extends Activity {
 	 * 把address.db拷贝到我们的/data/data/包名/files/address.db
 	 */
 	private void copyDB() {
-		//只要你拷贝了一次，我就不要你再拷贝了
+		//只要拷贝了一次，就不再拷贝了
 		try {
 			File file = new File(getFilesDir().getAbsolutePath(), "address.db");
 			Log.i(TAG, getFilesDir().getAbsolutePath());
