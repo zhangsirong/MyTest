@@ -1,4 +1,4 @@
-package com.zhang.mobilesafe.db.domain;
+package com.zhang.mobilesafe.domain;
 
 /**
  * 黑名单号码业务bean

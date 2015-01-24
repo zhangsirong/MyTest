@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.zhang.mobilesafe.db.BlackNumberDBOpenHelper;
-import com.zhang.mobilesafe.db.domain.BlackNumberInfo;
+import com.zhang.mobilesafe.domain.BlackNumberInfo;
 
 public class BlackNumberDao {
 	private BlackNumberDBOpenHelper helper;

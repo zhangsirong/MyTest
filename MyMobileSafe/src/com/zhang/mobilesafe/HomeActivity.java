@@ -61,10 +61,13 @@ public class HomeActivity extends Activity {
 				switch (position) {
 				case 0:// 进入手机防盗
 					showLostFindDialog();
-
 					break;
 				case 1:// 进入黑名单拦截界面
 					intent = new Intent(HomeActivity.this, CallSmsSafeActivity.class);
+					startActivity(intent);
+					break;
+				case 2:// 进入软件管理
+					intent = new Intent(HomeActivity.this, AppManagerActivity.class);
 					startActivity(intent);
 					break;
 

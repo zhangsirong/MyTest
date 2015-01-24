@@ -25,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhang.mobilesafe.db.dao.BlackNumberDao;
-import com.zhang.mobilesafe.db.domain.BlackNumberInfo;
+import com.zhang.mobilesafe.domain.BlackNumberInfo;
 import com.zhang.mobliesafe.R;
 
 public class CallSmsSafeActivity extends Activity {
@@ -63,7 +63,6 @@ public class CallSmsSafeActivity extends Activity {
 						offset += maxnumber;
 						fillData();
 					}
-
 					break;
 				case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:// ÊÖÖ¸´¥Ãþ¹ö¶¯×´Ì¬
 

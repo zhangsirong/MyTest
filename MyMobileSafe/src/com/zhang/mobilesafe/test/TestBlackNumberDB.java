@@ -7,7 +7,7 @@ import android.test.AndroidTestCase;
 
 import com.zhang.mobilesafe.db.BlackNumberDBOpenHelper;
 import com.zhang.mobilesafe.db.dao.BlackNumberDao;
-import com.zhang.mobilesafe.db.domain.BlackNumberInfo;
+import com.zhang.mobilesafe.domain.BlackNumberInfo;
 
 public class TestBlackNumberDB extends AndroidTestCase {
 	public void testCreateDB() throws Exception {
@@ -18,7 +18,7 @@ public class TestBlackNumberDB extends AndroidTestCase {
 
 	public void testAdd() throws Exception {
 		BlackNumberDao dao = new BlackNumberDao(getContext());
-		long basenumber = 13500000000l;
+		long basenumber = 1380013800;
 		Random random = new Random();
 		for (int i = 0; i < 100; i++) {
 			dao.add(String.valueOf(basenumber + i),String.valueOf(random.nextInt(3) + 1));
