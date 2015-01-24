@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 
 import com.zhang.mobilesafe.domain.AppInfo;
 import com.zhang.mobilesafe.engine.AppInfoProvider;
+import com.zhang.mobilesafe.utils.DensityUtil;
 import com.zhang.mobliesafe.R;
 
 public class AppManagerActivity extends Activity {
@@ -136,7 +138,7 @@ public class AppManagerActivity extends Activity {
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem,
 					int visibleItemCount, int totalItemCount) {
-				//dismissPopupWindow();
+				dismissPopupWindow();
 				if (userAppInfos != null && systemAppInfos != null) {
 					if (firstVisibleItem > userAppInfos.size()) {
 						tv_status.setText("系统程序：" + systemAppInfos.size() + "个");
@@ -166,9 +168,9 @@ public class AppManagerActivity extends Activity {
 					appInfo = systemAppInfos.get(newposition);
 				}
 				 //System.out.println(appInfo.getPackname());
-//				dismissPopupWindow();
-//				View contentView = View.inflate(getApplicationContext(),
-//						R.layout.popup_app_item, null);
+				dismissPopupWindow();
+				View contentView = View.inflate(getApplicationContext(),
+						R.layout.popup_app_item, null);
 //				ll_start = (LinearLayout) contentView
 //						.findViewById(R.id.ll_start);
 //				ll_share = (LinearLayout) contentView
@@ -180,19 +182,19 @@ public class AppManagerActivity extends Activity {
 //				ll_share.setOnClickListener(AppManagerActivity.this);
 //				ll_uninstall.setOnClickListener(AppManagerActivity.this);
 //
-//				popupWindow = new PopupWindow(contentView, -2, -2);
-//				// 动画效果的播放必须要求窗体有背景颜色。
-//				// 透明颜色也是颜色
-//				popupWindow.setBackgroundDrawable(new ColorDrawable(
-//						Color.TRANSPARENT));
-//				int[] location = new int[2];
-//				view.getLocationInWindow(location);
-//				// 在代码里面设置的宽高值 都是像素。---》dip
-//				int dip = 60;
-//				int px = DensityUtil.dip2px(getApplicationContext(), dip);
-//				System.out.println("px=" + px);
-//				popupWindow.showAtLocation(parent, Gravity.LEFT | Gravity.TOP,
-//						px, location[1]);
+				popupWindow = new PopupWindow(contentView, -2, -2);
+				// 动画效果的播放必须要求窗体有背景颜色。
+				// 透明颜色也是颜色
+				popupWindow.setBackgroundDrawable(new ColorDrawable(
+						Color.TRANSPARENT));
+				int[] location = new int[2];
+				view.getLocationInWindow(location);
+				// 在代码里面设置的宽高值 都是像素。---》dip
+				int dip = 60;
+				int px = DensityUtil.dip2px(getApplicationContext(), dip);
+				System.out.println("px=" + px);
+				popupWindow.showAtLocation(parent, Gravity.LEFT | Gravity.TOP,
+						px, location[1]);
 //				ScaleAnimation sa = new ScaleAnimation(0.3f, 1.0f, 0.3f, 1.0f,
 //						Animation.RELATIVE_TO_SELF, 0,
 //						Animation.RELATIVE_TO_SELF, 0.5f);
@@ -317,5 +319,10 @@ public class AppManagerActivity extends Activity {
 		long size = statf.getBlockSize();// 获取分区大小
 		long count = statf.getAvailableBlocks();// 获取可用的区块个数
 		return size * count;
+	}
+	@Override
+	protected void onDestroy() {
+		dismissPopupWindow();
+		super.onDestroy();
 	}
 }
