@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -33,6 +35,8 @@ public class CallSmsSafeActivity extends Activity {
 	private List<BlackNumberInfo> infos;
 	private CallSmsAdapter adapter;
 	private LinearLayout ll_loading;
+	private int offset = 0;
+	private int maxnumber = 20;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,22 +45,70 @@ public class CallSmsSafeActivity extends Activity {
 		lv_callsms_safe = (ListView) findViewById(R.id.lv_callsms_safe);
 		ll_loading = (LinearLayout) findViewById(R.id.ll_loading);
 		dao = new BlackNumberDao(this);
+		fillData();
+		// listView注册一个可滚动的事件监听器
+		lv_callsms_safe.setOnScrollListener(new OnScrollListener() {
+			// 当滚动的状态发生变化的时候
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				switch (scrollState) {
+				case OnScrollListener.SCROLL_STATE_IDLE:// 空闲状态
+					// 判断当前listiew滚动的位置
+					// 获取最后一个可见条目在集合中的位置
+					int lastposition = lv_callsms_safe.getLastVisiblePosition();
+					System.out.println(lastposition);
+					// 集合里面有20个item 位置从0开始,最后一个item位为19
+					if (lastposition == (infos.size() - 1)) {
+						System.out.println("列表移动到最后一个位置加载数据");
+						offset += maxnumber;
+						fillData();
+					}
+
+					break;
+				case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:// 手指触摸滚动状态
+
+					break;
+				case OnScrollListener.SCROLL_STATE_FLING:// 惯性滑行状态
+
+					break;
+				}
+
+			}
+
+			// 滚动时调用的方法
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+	}
+
+	private void fillData() {
 		ll_loading.setVisibility(View.VISIBLE);
 		new Thread() {
 			public void run() {
-				infos = dao.findAll();
+				if (infos == null) {
+					infos = dao.findPart(offset, maxnumber);
+				} else {// 原来已经加载过数据了
+					infos.addAll(dao.findPart(offset, maxnumber));
+				}
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
 						ll_loading.setVisibility(View.INVISIBLE);
-						adapter = new CallSmsAdapter();
-						lv_callsms_safe.setAdapter(adapter);
-
+						if (adapter == null) {
+							adapter = new CallSmsAdapter();
+							lv_callsms_safe.setAdapter(adapter);
+						} else {
+							adapter.notifyDataSetChanged();
+						}
 					}
 				});
 			};
 		}.start();
-
 	}
 
 	private class CallSmsAdapter extends BaseAdapter {
