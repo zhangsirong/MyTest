@@ -28,6 +28,24 @@ public class BlackNumberDao {
 	 * 查询黑名单号码是否存在
 	 * 
 	 * @param number
+	 * @return返回号码的拦截模式,不是黑名单号码返回null;
+	 */
+	public String findMode(String number) {
+		String result = null;
+		SQLiteDatabase db = helper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("select mode from blacknumber where number=?",
+				new String[] { number });
+		if (cursor.moveToNext()) {
+			result = cursor.getString(0);
+		}
+		cursor.close();
+		db.close();
+		return result;
+	}
+	/**
+	 * 查询黑名单号码是否存在
+	 * 
+	 * @param number
 	 * @return
 	 */
 	public boolean find(String number) {
@@ -45,8 +63,15 @@ public class BlackNumberDao {
 	/**
 	 * 查询全部黑名单号码
 	 * @return
+	 * @throws InterruptedException 
 	 */
 	public List<BlackNumberInfo> findAll(){
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		List<BlackNumberInfo> result = new ArrayList<BlackNumberInfo>();
 		SQLiteDatabase db = helper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("select number,mode from blacknumber order by _id desc", null);

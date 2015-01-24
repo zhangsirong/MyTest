@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import com.zhang.mobliesafe.R;
 
 public class Setup3Activity extends BaseSetupActivity {
 	
+	private static final String TAG = "Setup3Activity";
 	private EditText et_setup3_phone;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class Setup3Activity extends BaseSetupActivity {
 	 * @param view
 	 */
 	public void selectContact(View view){
+		Log.i(TAG, "进入手机联系人界面");
 		Intent intent = new Intent(this,SelectContactActivity.class);
 		startActivityForResult(intent, 0);
 		

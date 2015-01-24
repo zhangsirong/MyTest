@@ -21,9 +21,7 @@ public class TestBlackNumberDB extends AndroidTestCase {
 		long basenumber = 13500000000l;
 		Random random = new Random();
 		for (int i = 0; i < 100; i++) {
-			dao.add(String.valueOf(basenumber + i),
-					String.valueOf(random.nextInt(3) + 1));
-			System.out.println("i");
+			dao.add(String.valueOf(basenumber + i),String.valueOf(random.nextInt(3) + 1));
 		}
 	}
 

@@ -3,29 +3,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
- 	<TextView
- 	    android:textSize="30sp"
- 	    android:background="#8866ff00"
- 	    android:gravity="center"
- 	    android:textColor="#000000"
-     	android:id="@+id/textview1"
-     	android:layout_width="fill_parent"
-     	android:layout_height="55dip"
-     	android:text="高级工具"
-      />
- 	<TextView
- 	    android:clickable="true"
- 	    android:onClick="numberQuery"
- 	    android:drawableLeft="@android:drawable/ic_menu_call"
- 	    android:textColor="#000000"
- 	    android:textSize="20sp"
-     	android:layout_marginTop="10dip"
-     	android:layout_marginLeft="10dip"
-     	android:layout_width="fill_parent"
-     	android:layout_height="wrap_content"
-     	android:text="号码归属地查询"
-      />
- 	
- 	
+
+    <TextView
+        android:id="@+id/textview1"
+        android:layout_width="fill_parent"
+        android:layout_height="55dip"
+        android:background="#8866ff00"
+        android:gravity="center"
+        android:text="高级工具"
+        android:textColor="#000000"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="10dip"
+        android:clickable="true"
+        android:drawableLeft="@android:drawable/ic_menu_call"
+        android:onClick="numberQuery"
+        android:text="号码归属地查询"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="10dip"
+        android:clickable="true"
+        android:drawableLeft="@android:drawable/ic_menu_call"
+        android:onClick="smsBackup"
+        android:text="短信的备份"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="10dip"
+        android:clickable="true"
+        android:drawableLeft="@android:drawable/ic_menu_call"
+        android:onClick="smsRestore"
+        android:text="短信的还原"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
 </LinearLayout>

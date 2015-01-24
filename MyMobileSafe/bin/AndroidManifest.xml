@@ -25,6 +25,11 @@
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
         android:targetPackage="com.zhang.mobliesafe" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
+    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_SMS"/>
 
     <application
         android:allowBackup="true"
@@ -51,24 +56,24 @@
         <activity android:name="com.zhang.mobilesafe.SelectContactActivity" />
         <activity android:name="com.zhang.mobilesafe.AtoolsActivity" />
         <activity android:name="com.zhang.mobilesafe.NumberAddressQueryActivity" />
+        <activity android:name="com.zhang.mobilesafe.CallSmsSafeActivity" />
 
         <service android:name="com.zhang.mobilesafe.service.GPSService" />
         <service android:name="com.zhang.mobilesafe.service.AddressService" />
-
-        <activity android:name="com.zhang.mobilesafe.CallSmsSafeActivity" >
-        </activity>
+        <service android:name="com.zhang.mobilesafe.service.CallSmsSafeService" />
 
         <receiver android:name="com.zhang.mobilesafe.receiver.BootCompleteReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.itheima.mobilesafe.receiver.SMSReceiver" >
+        <receiver android:name="com.zhang.mobilesafe.receiver.SMSReceiver" >
             <intent-filter android:priority="1000" >
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-        <uses-library android:name="android.test.runner"/>
+
+        <uses-library android:name="android.test.runner" />
     </application>
 
 </manifest>

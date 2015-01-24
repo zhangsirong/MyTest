@@ -20,7 +20,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zhang.mobilesafe.db.dao.NumberAddressQueryUtils;
 import com.zhang.mobliesafe.R;
