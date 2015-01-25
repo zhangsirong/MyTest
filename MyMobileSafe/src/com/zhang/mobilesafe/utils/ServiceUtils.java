@@ -1,4 +1,4 @@
-package com.zhang.mobilesafe.service;
+package com.zhang.mobilesafe.utils;
 
 import java.util.List;
 

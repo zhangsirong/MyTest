@@ -14,9 +14,9 @@ import android.view.View.OnClickListener;
 
 import com.zhang.mobilesafe.service.AddressService;
 import com.zhang.mobilesafe.service.CallSmsSafeService;
-import com.zhang.mobilesafe.service.ServiceUtils;
 import com.zhang.mobilesafe.ui.SettingClickView;
 import com.zhang.mobilesafe.ui.SettingItemView;
+import com.zhang.mobilesafe.utils.ServiceUtils;
 import com.zhang.mobliesafe.R;
 
 public class SettingActivity extends Activity {

@@ -20,11 +20,13 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences.Editor;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -69,6 +71,8 @@ public class SplashActivity extends Activity {
 		tv_splash_version.setText("版本号" + getVersionName());
 		tv_update_info = (TextView) findViewById(R.id.tv_update_info);
 		boolean update = sp.getBoolean("update", false);
+		//创建快捷方式
+		installShortCut();
 		//copy数据库
 		copyDB();
 		
@@ -93,6 +97,37 @@ public class SplashActivity extends Activity {
 		aa.setDuration(500);
 		findViewById(R.id.rl_root_splash).startAnimation(aa);
 	}
+	
+	/**
+	 * 创建快捷方式
+	 */
+	
+	private void installShortCut() {
+		boolean shortcut = sp.getBoolean("shortcut", false);
+		if(shortcut)
+			return;
+		Editor editor = sp.edit();
+		//发送广播的意图，告诉桌面，要创建快捷图标了
+		Intent intent = new Intent();
+		intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+		//快捷方式  要包含3个重要的信息 1，名称 2.图标 3.干什么事情
+		intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "手机小卫士");
+		intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+		//桌面点击图标对应的意图。
+		Intent shortcutIntent = new Intent();
+		shortcutIntent.setAction("android.intent.action.MAIN");
+		shortcutIntent.addCategory("android.intent.category.LAUNCHER");
+		shortcutIntent.setClassName(getPackageName(), "com.zhang.mobilesafe.SplashActivity");
+//		shortcutIntent.setAction("com.zhang.xxxx");
+//		shortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
+		intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+		sendBroadcast(intent);
+		editor.putBoolean("shortcut", true);
+		editor.commit();
+	}
+
+
+
 	/**
 	 * 把address.db拷贝到我们的/data/data/包名/files/address.db
 	 */
