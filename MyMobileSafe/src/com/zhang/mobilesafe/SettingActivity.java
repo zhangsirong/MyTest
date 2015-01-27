@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 
 import com.zhang.mobilesafe.service.AddressService;
 import com.zhang.mobilesafe.service.CallSmsSafeService;
+import com.zhang.mobilesafe.service.WatchDogService;
 import com.zhang.mobilesafe.ui.SettingClickView;
 import com.zhang.mobilesafe.ui.SettingItemView;
 import com.zhang.mobilesafe.utils.ServiceUtils;
@@ -28,7 +29,11 @@ public class SettingActivity extends Activity {
 
 	// 黑名单拦截设置
 	private SettingItemView siv_callsms_safe;
-	private Intent CallSmsSafeIntent;
+	private Intent callSmsSafeIntent;
+
+	// 程序锁看门狗的设置
+	private SettingItemView siv_watchdog;
+	private Intent watchDogIntent;
 	// 保存软件参数
 	private SharedPreferences sp;
 
@@ -39,7 +44,7 @@ public class SettingActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		Boolean isRunning = ServiceUtils.isServiceRunning(this,
 				"com.zhang.mobilesafe.service.AddressService");
 		if (isRunning) {
@@ -51,8 +56,7 @@ public class SettingActivity extends Activity {
 			Log.i(TAG, "监听来电显示的服务已经关闭了");
 			siv_show_address.setChecked(false);
 		}
-		
-		
+
 		boolean update = sp.getBoolean("update", false);
 		if (update) {
 			// 自动升级已经开启
@@ -63,12 +67,11 @@ public class SettingActivity extends Activity {
 			siv_update.setChecked(false);
 			siv_update.setDesc("自动升级已经关闭");
 		}
-		
-		
+
 		Boolean isCallSmsServiceRunning = ServiceUtils.isServiceRunning(this,
 				"com.zhang.mobilesafe.service.CallSmsSafeService");
 		if (isCallSmsServiceRunning) {
-			 //拦截黑名单服务已经开起了
+			// 拦截黑名单服务已经开起了
 			Log.i(TAG, "拦截黑名单服务已经开起了");
 			siv_callsms_safe.setChecked(true);
 		} else {
@@ -77,7 +80,11 @@ public class SettingActivity extends Activity {
 			siv_callsms_safe.setChecked(false);
 		}
 		// siv_callsms_safe.setChecked(iscallSmsServiceRunning);
-
+		
+		Boolean isWatchDogServiceRunning = ServiceUtils.isServiceRunning(this,
+				"com.zhang.mobilesafe.service.WatchDogService");
+		siv_watchdog.setChecked(isWatchDogServiceRunning);
+		Log.i(TAG, "程序锁服务开启关闭了"+isWatchDogServiceRunning);
 	}
 
 	@Override
@@ -161,27 +168,51 @@ public class SettingActivity extends Activity {
 			}
 		});
 		// 黑名单拦截设置
-		CallSmsSafeIntent = new Intent(this, CallSmsSafeService.class);
+		callSmsSafeIntent = new Intent(this, CallSmsSafeService.class);
 		siv_callsms_safe = (SettingItemView) findViewById(R.id.siv_callsms_safe);
 		siv_callsms_safe.setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						// 黑名单拦截设置是否开启了
-						if (siv_callsms_safe.isChecked()) {
-							// 变为非选中状态
-							Log.i(TAG, "黑名单拦截设置变为非选中状态");
-							
-							stopService(CallSmsSafeIntent);
-							siv_callsms_safe.setChecked(false);
-						} else {
-							// 选择状态
-							Log.i(TAG, "黑名单拦截设置变为选中状态");
-							startService(CallSmsSafeIntent);
-							siv_callsms_safe.setChecked(true);
-						}
+			@Override
+			public void onClick(View v) {
+				// 黑名单拦截设置是否开启了
+				if (siv_callsms_safe.isChecked()) {
+					// 变为非选中状态
+					Log.i(TAG, "黑名单拦截设置变为非选中状态");
 
-					}
-				});
+					stopService(callSmsSafeIntent);
+					siv_callsms_safe.setChecked(false);
+				} else {
+					// 选择状态
+					Log.i(TAG, "黑名单拦截设置变为选中状态");
+					startService(callSmsSafeIntent);
+					siv_callsms_safe.setChecked(true);
+				}
+
+			}
+		});
+
+		// 程序锁设置
+		watchDogIntent = new Intent(this, WatchDogService.class);
+		siv_watchdog = (SettingItemView) findViewById(R.id.siv_watchdog);
+		siv_watchdog.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// 程序锁设置是否开启了
+				if (siv_watchdog.isChecked()) {
+					// 变为非选中状态
+					Log.i(TAG, "程序锁设置变为非选中状态");
+
+					stopService(watchDogIntent);
+					siv_watchdog.setChecked(false);
+				} else {
+					// 选择状态
+					Log.i(TAG, "程序锁设置变为选中状态");
+					startService(watchDogIntent);
+					siv_watchdog.setChecked(true);
+				}
+
+			}
+		});
 	}
 }

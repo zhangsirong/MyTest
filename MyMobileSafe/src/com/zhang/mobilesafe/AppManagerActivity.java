@@ -26,6 +26,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,32 +36,35 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zhang.mobilesafe.db.dao.ApplockDao;
 import com.zhang.mobilesafe.domain.AppInfo;
 import com.zhang.mobilesafe.engine.AppInfoProvider;
 import com.zhang.mobilesafe.utils.DensityUtil;
 import com.zhang.mobliesafe.R;
 
-public class AppManagerActivity extends Activity implements OnClickListener{
+public class AppManagerActivity extends Activity implements OnClickListener {
 	private static final String TAG = "AppManagerActivity";
 	private TextView tv_avail_rom;
 	private TextView tv_avail_sd;
+
 	private ListView lv_app_manager;
 	private LinearLayout ll_loading;
+
 	/**
-	 * 所有的应用程序信息
+	 * 所有的应用程序包信息
 	 */
 	private List<AppInfo> appInfos;
 
 	/**
-	 * 用户应用程序的信息
+	 * 用户应用程序的集合
 	 */
 	private List<AppInfo> userAppInfos;
 
 	/**
-	 * 系统应用程序的信息
+	 * 系统应用程序的集合
 	 */
 	private List<AppInfo> systemAppInfos;
-	
+
 	/**
 	 * 当前程序信息的状态。
 	 */
@@ -91,21 +95,25 @@ public class AppManagerActivity extends Activity implements OnClickListener{
 
 	private AppManagerAdapter adapter;
 	
-	//private ApplockDao dao;
+	private ApplockDao dao;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_app_manager);
+		dao = new ApplockDao(this);
+		tv_status = (TextView) findViewById(R.id.tv_status);
 		tv_avail_rom = (TextView) findViewById(R.id.tv_avail_rom);
 		tv_avail_sd = (TextView) findViewById(R.id.tv_avail_sd);
-		tv_status = (TextView) findViewById(R.id.tv_status);
 		long sdsize = getAvailSpace(Environment.getExternalStorageDirectory()
 				.getAbsolutePath());
 		long romsize = getAvailSpace(Environment.getDataDirectory()
 				.getAbsolutePath());
-		tv_avail_sd.setText("SD卡可用:" + Formatter.formatFileSize(this, sdsize));
-		tv_avail_rom.setText("内部可用:" + Formatter.formatFileSize(this, romsize));
+//		tv_avail_sd
+//				.setText("SD卡可用：" + Formatter.formatFileSize(this, sdsize));
+		tv_avail_sd.setText(null);
+		tv_avail_rom.setText("内存可用："
+				+ Formatter.formatFileSize(this, romsize));
 
 		lv_app_manager = (ListView) findViewById(R.id.lv_app_manager);
 		ll_loading = (LinearLayout) findViewById(R.id.ll_loading);
@@ -134,7 +142,7 @@ public class AppManagerActivity extends Activity implements OnClickListener{
 				}
 			}
 		});
-		
+
 		/**
 		 * 设置listview的点击事件
 		 */
@@ -153,12 +161,16 @@ public class AppManagerActivity extends Activity implements OnClickListener{
 					int newposition = position - 1 - userAppInfos.size() - 1;
 					appInfo = systemAppInfos.get(newposition);
 				}
-				 //System.out.println(appInfo.getPackname());
+				// System.out.println(appInfo.getPackname());
 				dismissPopupWindow();
-				View contentView = View.inflate(getApplicationContext(),R.layout.popup_app_item, null);
-				ll_start = (LinearLayout) contentView.findViewById(R.id.ll_start);
-				ll_share = (LinearLayout) contentView.findViewById(R.id.ll_share);
-				ll_uninstall = (LinearLayout) contentView.findViewById(R.id.ll_uninstall);
+				View contentView = View.inflate(getApplicationContext(),
+						R.layout.popup_app_item, null);
+				ll_start = (LinearLayout) contentView
+						.findViewById(R.id.ll_start);
+				ll_share = (LinearLayout) contentView
+						.findViewById(R.id.ll_share);
+				ll_uninstall = (LinearLayout) contentView
+						.findViewById(R.id.ll_uninstall);
 
 				ll_start.setOnClickListener(AppManagerActivity.this);
 				ll_share.setOnClickListener(AppManagerActivity.this);
@@ -189,9 +201,40 @@ public class AppManagerActivity extends Activity implements OnClickListener{
 				contentView.startAnimation(set);
 			}
 		});
-		
-
+		/**
+		 * 程序锁 设置条目长点击的事件监听器
+		 */
+		lv_app_manager.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				if (position == 0) {
+					return true;//在这处理完了
+				} else if (position == (userAppInfos.size() + 1)) {
+					return true;
+				} else if (position <= userAppInfos.size()) {// 用户程序
+					int newposition = position - 1;
+					appInfo = userAppInfos.get(newposition);
+				} else {// 系统程序
+					int newposition = position - 1 - userAppInfos.size() - 1;
+					appInfo = systemAppInfos.get(newposition);
+				}
+				ViewHolder holder = (ViewHolder) view.getTag();
+				//判断条目是否存在在程序锁数据库里面
+				if(dao.find(appInfo.getPackname())){
+					//被锁定的程序，解除锁定，更新界面为打开的小锁图片
+					dao.delete(appInfo.getPackname());
+					holder.iv_status.setImageResource(R.drawable.unlock);
+				}else{
+					//锁定程序，更新界面为关闭的锁
+					dao.add(appInfo.getPackname());
+					holder.iv_status.setImageResource(R.drawable.lock);
+				}
+				return true;
+			}
+		});
 	}
+
 	private void fillData() {
 		ll_loading.setVisibility(View.VISIBLE);
 		new Thread() {
@@ -201,57 +244,35 @@ public class AppManagerActivity extends Activity implements OnClickListener{
 				systemAppInfos = new ArrayList<AppInfo>();
 				for (AppInfo info : appInfos) {
 					if (info.isUserApp()) {
-						// 用户程序
 						userAppInfos.add(info);
 					} else {
-						// 系统程序
 						systemAppInfos.add(info);
 					}
-
 				}
-
+				// 加载listview的数据适配器
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						if(adapter == null){
+						if (adapter == null) {
 							adapter = new AppManagerAdapter();
 							lv_app_manager.setAdapter(adapter);
-							
-						}else{
+						} else {
 							adapter.notifyDataSetChanged();
 						}
 						ll_loading.setVisibility(View.INVISIBLE);
 					}
 				});
-			}
+			};
 		}.start();
-	}
-	private void dismissPopupWindow() {
-		// 把旧的弹出窗体关闭掉。
-		if (popupWindow != null && popupWindow.isShowing()) {
-			popupWindow.dismiss();
-			popupWindow = null;
-		}
 	}
 
 	private class AppManagerAdapter extends BaseAdapter {
 
+		// 控制listview有多少个条目
 		@Override
 		public int getCount() {
 			// return appInfos.size();
 			return userAppInfos.size() + 1 + systemAppInfos.size() + 1;
-		}
-
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return 0;
 		}
 
 		@Override
@@ -298,29 +319,41 @@ public class AppManagerActivity extends Activity implements OnClickListener{
 				holder.tv_location = (TextView) view
 						.findViewById(R.id.tv_app_location);
 				holder.tv_name = (TextView) view.findViewById(R.id.tv_app_name);
-				//holder.iv_status = (ImageView) view.findViewById(R.id.iv_status);
+				holder.iv_status = (ImageView) view.findViewById(R.id.iv_status);
 				view.setTag(holder);
 			}
 			holder.iv_icon.setImageDrawable(appInfo.getIcon());
 			holder.tv_name.setText(appInfo.getName());
 			if (appInfo.isInRom()) {
-				holder.tv_location.setText("手机内存");
+				holder.tv_location.setText("手机内存"+"uid:"+appInfo.getUid());
 			} else {
-				holder.tv_location.setText("外部存储");
+				holder.tv_location.setText("外部存储"+"uid:"+appInfo.getUid());
 			}
-//			if(dao.find(appInfo.getPackname())){
-//				holder.iv_status.setImageResource(R.drawable.lock);
-//			}else{
-//				holder.iv_status.setImageResource(R.drawable.unlock);
-//			}
+			if(dao.find(appInfo.getPackname())){
+				holder.iv_status.setImageResource(R.drawable.lock);
+			}else{
+				holder.iv_status.setImageResource(R.drawable.unlock);
+			}
 			return view;
 		}
+
+		@Override
+		public Object getItem(int position) {
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return 0;
+		}
+
 	}
 
 	static class ViewHolder {
 		TextView tv_name;
 		TextView tv_location;
 		ImageView iv_icon;
+		ImageView iv_status;
 	}
 
 	/**
@@ -332,17 +365,27 @@ public class AppManagerActivity extends Activity implements OnClickListener{
 	private long getAvailSpace(String path) {
 		StatFs statf = new StatFs(path);
 		statf.getBlockCount();// 获取分区的个数
-		long size = statf.getBlockSize();// 获取分区大小
-		long count = statf.getAvailableBlocks();// 获取可用的区块个数
+		long size = statf.getBlockSize();// 获取分区的大小
+		long count = statf.getAvailableBlocks();// 获取可用的区块的个数
 		return size * count;
 	}
+
+	private void dismissPopupWindow() {
+		// 把旧的弹出窗体关闭掉。
+		if (popupWindow != null && popupWindow.isShowing()) {
+			popupWindow.dismiss();
+			popupWindow = null;
+		}
+	}
+
 	@Override
 	protected void onDestroy() {
 		dismissPopupWindow();
 		super.onDestroy();
 	}
+
 	/**
-	 * 布局对应的点击事件
+	 * 启动程序,卸载程序,分享程序布局对应的点击事件
 	 */
 	@Override
 	public void onClick(View v) {
@@ -415,7 +458,8 @@ public class AppManagerActivity extends Activity implements OnClickListener{
 		// intent.setAction("android.intent.action.MAIN");
 		// intent.addCategory("android.intent.category.LAUNCHER");
 		// //查询出来了所有的手机上具有启动能力的activity。
-		// List<ResolveInfo> infos = pm.queryIntentActivities(intent, PackageManager.GET_INTENT_FILTERS);
+		// List<ResolveInfo> infos = pm.queryIntentActivities(intent,
+		// PackageManager.GET_INTENT_FILTERS);
 		Intent intent = pm.getLaunchIntentForPackage(appInfo.getPackname());
 		if (intent != null) {
 			startActivity(intent);

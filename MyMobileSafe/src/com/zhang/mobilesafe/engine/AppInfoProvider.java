@@ -1,5 +1,6 @@
 package com.zhang.mobilesafe.engine;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,11 @@ public class AppInfoProvider {
 			Drawable icon = packInfo.applicationInfo.loadIcon(pm);
 			String name = packInfo.applicationInfo.loadLabel(pm).toString();
 			int flags = packInfo.applicationInfo.flags;//应用程序信息的标记 相当于用户提交的答卷
+			int uid = packInfo.applicationInfo.uid;
+			//File rcvfile = new File("/proc/uid_stat/"+uid+"tcp_rcv");
+			//File sndfile  = new File("/proc/uid_stat/"+uid+"tcp_snd");
+			appInfo.setUid(uid);
+			
 			if((flags&ApplicationInfo.FLAG_SYSTEM)==0){
 				//用户程序
 				appInfo.setUserApp(true);

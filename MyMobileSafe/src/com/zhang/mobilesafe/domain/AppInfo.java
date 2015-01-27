@@ -11,6 +11,13 @@ public class AppInfo {
 	private String packname;
 	private boolean inRom;
 	private boolean userApp;
+	private int uid;
+	public int getUid() {
+		return uid;
+	}
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
 	public Drawable getIcon() {
 		return icon;
 	}

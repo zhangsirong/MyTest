@@ -26,12 +26,14 @@
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
         android:targetPackage="com.zhang.mobliesafe" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
-    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.WRITE_SMS"/>
-     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:allowBackup="true"
@@ -59,14 +61,23 @@
         <activity android:name="com.zhang.mobilesafe.AtoolsActivity" />
         <activity android:name="com.zhang.mobilesafe.NumberAddressQueryActivity" />
         <activity android:name="com.zhang.mobilesafe.CallSmsSafeActivity" />
-        <activity android:name="com.zhang.mobilesafe.AppManagerActivity"/>
-        <activity android:name="com.zhang.mobilesafe.TaskManagerActivity"/>
-        <activity android:name="com.zhang.mobilesafe.TaskSettingActivity"/>
+        <activity android:name="com.zhang.mobilesafe.AppManagerActivity" />
+        <activity android:name="com.zhang.mobilesafe.TaskManagerActivity" />
+        <activity android:name="com.zhang.mobilesafe.TaskSettingActivity" />
+        <activity android:name="com.zhang.mobilesafe.TrafficManagerActivity"/>
+       	<activity android:name="com.zhang.mobilesafe.AntiVirusActivity"/>
+        <activity
+            android:name="com.zhang.mobilesafe.EnterPwdActivity"
+            android:launchMode="singleInstance" 
+            android:excludeFromRecents="true">
+        </activity>
 
         <service android:name="com.zhang.mobilesafe.service.GPSService" />
         <service android:name="com.zhang.mobilesafe.service.AddressService" />
         <service android:name="com.zhang.mobilesafe.service.CallSmsSafeService" />
-        <service android:name="com.zhang.mobilesafe.service.AutoCleanService"/>
+        <service android:name="com.zhang.mobilesafe.service.AutoCleanService" />
+        <service android:name="com.zhang.mobilesafe.service.UpdateWidgetService" />
+        <service android:name="com.zhang.mobilesafe.service.WatchDogService" />
 
         <receiver android:name="com.zhang.mobilesafe.receiver.BootCompleteReceiver" >
             <intent-filter>
@@ -76,6 +87,11 @@
         <receiver android:name="com.zhang.mobilesafe.receiver.SMSReceiver" >
             <intent-filter android:priority="1000" >
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.zhang.mobilesafe.receiver.KillAllRecevier" >
+            <intent-filter>
+                <action android:name="com.zhang.mobilesafe.killall" />
             </intent-filter>
         </receiver>
 

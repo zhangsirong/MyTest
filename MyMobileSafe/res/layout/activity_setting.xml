@@ -24,7 +24,27 @@
         zhang:title="设置自动更新" >
     </com.zhang.mobilesafe.ui.SettingItemView>
 
+   
+
     <com.zhang.mobilesafe.ui.SettingItemView
+        android:id="@+id/siv_callsms_safe"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        zhang:desc_off="黑名单拦截已经关闭"
+        zhang:desc_on="黑名单拦截已经开启"
+        zhang:title="黑名单拦截设置" >
+    </com.zhang.mobilesafe.ui.SettingItemView>
+
+    <com.zhang.mobilesafe.ui.SettingItemView
+        android:id="@+id/siv_watchdog"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        zhang:desc_off="程序锁已经关闭"
+        zhang:desc_on="程序锁已经开启"
+        zhang:title="程序锁设置" >
+    </com.zhang.mobilesafe.ui.SettingItemView>
+    
+     <com.zhang.mobilesafe.ui.SettingItemView
         android:id="@+id/siv_show_address"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -38,14 +58,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
     </com.zhang.mobilesafe.ui.SettingClickView>
-
-    <com.zhang.mobilesafe.ui.SettingItemView
-        android:id="@+id/siv_callsms_safe"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        zhang:desc_off="黑名单拦截已经关闭"
-        zhang:desc_on="黑名单拦截已经开启"
-        zhang:title="黑名单拦截设置" >
-    </com.zhang.mobilesafe.ui.SettingItemView>
 
 </LinearLayout>
