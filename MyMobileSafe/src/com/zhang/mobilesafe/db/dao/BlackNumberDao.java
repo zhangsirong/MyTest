@@ -10,6 +10,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.zhang.mobilesafe.db.BlackNumberDBOpenHelper;
 import com.zhang.mobilesafe.domain.BlackNumberInfo;
+/**
+ * 黑名单查询数据库的增删改查业务类
+ * @author hp
+ *
+ */
 
 public class BlackNumberDao {
 	private BlackNumberDBOpenHelper helper;

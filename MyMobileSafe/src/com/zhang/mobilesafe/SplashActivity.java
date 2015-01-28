@@ -74,7 +74,8 @@ public class SplashActivity extends Activity {
 		//创建快捷方式
 		installShortCut();
 		//copy数据库
-		copyDB();
+		copyDB("address.db");
+		copyDB("antivirus.db");
 		
 		if(update){
 			// 检查升级
@@ -131,16 +132,17 @@ public class SplashActivity extends Activity {
 	/**
 	 * 把address.db拷贝到我们的/data/data/包名/files/address.db
 	 */
-	private void copyDB() {
+	private void copyDB(String filename) {
 		//只要拷贝了一次，就不再拷贝了
 		try {
-			File file = new File(getFilesDir().getAbsolutePath(), "address.db");
+			File file = new File(getFilesDir().getAbsolutePath(), filename);
 			Log.i(TAG, getFilesDir().getAbsolutePath());
 			if(file.exists()&&file.length()>0){
 				//正常了，就不需要拷贝了
 				Log.i(TAG, "正常了，就不需要拷贝了");
 			}else{
-				InputStream is = getResources().openRawResource(R.raw.address);
+				//InputStream is = getResources().openRawResource(R.raw.address);
+				InputStream is = getAssets().open(filename);
 				FileOutputStream fos = new FileOutputStream(file);
 				byte[] buffer = new byte[1024];
 				int len = 0;

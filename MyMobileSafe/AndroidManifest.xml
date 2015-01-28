@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhang.mobliesafe"
-    android:installLocation="preferExternal"
+    android:installLocation="auto"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="17" />
+    
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:targetPackage="com.zhang.mobliesafe" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -22,11 +26,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
-    <instrumentation
-        android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="com.zhang.mobliesafe" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
@@ -34,6 +33,7 @@
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE"/>
 
     <application
         android:allowBackup="true"
@@ -64,12 +64,16 @@
         <activity android:name="com.zhang.mobilesafe.AppManagerActivity" />
         <activity android:name="com.zhang.mobilesafe.TaskManagerActivity" />
         <activity android:name="com.zhang.mobilesafe.TaskSettingActivity" />
-        <activity android:name="com.zhang.mobilesafe.TrafficManagerActivity"/>
-       	<activity android:name="com.zhang.mobilesafe.AntiVirusActivity"/>
+        <activity android:name="com.zhang.mobilesafe.TrafficManagerActivity" />
+        <activity android:name="com.zhang.mobilesafe.ClearCacheActivity"/>
+        <activity
+            android:name="com.zhang.mobilesafe.AntiVirusActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" >
+        </activity>
         <activity
             android:name="com.zhang.mobilesafe.EnterPwdActivity"
-            android:launchMode="singleInstance" 
-            android:excludeFromRecents="true">
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance" >
         </activity>
 
         <service android:name="com.zhang.mobilesafe.service.GPSService" />
