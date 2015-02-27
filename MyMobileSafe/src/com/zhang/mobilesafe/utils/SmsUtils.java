@@ -165,10 +165,8 @@ public class SmsUtils {
 						values.put("body", parser.nextText());
 					} else if("address".equals(tagName)) { // <address>
 						values.put("address", parser.nextText());
-					
 					} else if("type".equals(tagName)) { // <type>
 						values.put("type", parser.nextText());
-						
 					}
 					else if("date".equals(tagName)) { // <date>
 						values.put("date", parser.nextText());

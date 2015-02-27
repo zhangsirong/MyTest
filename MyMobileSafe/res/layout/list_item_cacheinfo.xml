@@ -20,6 +20,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="缓存大小" />
+    <TextView
+        android:layout_marginLeft="10dip"
+        android:layout_toRightOf="@id/tv_cache_size"
+        android:layout_alignTop="@id/tv_cache_size"
+        android:id="@+id/tv_data_size"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="数据大小" />
 
     <ImageView
         android:id="@+id/iv_delete"

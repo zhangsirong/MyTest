@@ -1,9 +1,8 @@
 package com.zhang.mobilesafe;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.IPackageDataObserver;
@@ -14,6 +13,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PackageStats;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.os.UserHandle;
 import android.text.format.Formatter;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,9 +21,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.zhang.mobliesafe.R;
-import com.zhang.mobliesafe.R.id;
 
 public class ClearCacheActivity extends Activity {
 	private ProgressBar pb;
@@ -50,6 +49,7 @@ public class ClearCacheActivity extends Activity {
 	private void scanCache() {
 		pm = getPackageManager();
 		new Thread() {
+			@SuppressLint("NewApi")
 			public void run() {
 				Method getSizeInfoMethod = null;
 				Method[] methods = PackageManager.class.getMethods();
@@ -60,9 +60,12 @@ public class ClearCacheActivity extends Activity {
 				}
 				List<PackageInfo> packInfos = pm.getInstalledPackages(0);
 				pb.setMax(packInfos.size());
+				
 				for (PackageInfo packInfo : packInfos) {
 					try {
-						getSizeInfoMethod.invoke(pm, packInfo.packageName,10000, new MyObserver());
+						Method myUserId = UserHandle.class.getDeclaredMethod("myUserId");  
+						int userID = (Integer) myUserId.invoke(pm,null);
+						getSizeInfoMethod.invoke(pm, packInfo.packageName, userID, new MyObserver());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -90,7 +93,7 @@ public class ClearCacheActivity extends Activity {
 			final ApplicationInfo appInfo;
 			final long cache = pStats.cacheSize;
 			long code = pStats.codeSize;
-			long data = pStats.dataSize;
+			final long data = pStats.dataSize;
 			final String packname = pStats.packageName;
 			try {
 				appInfo = pm.getApplicationInfo(packname, 0);
@@ -106,12 +109,14 @@ public class ClearCacheActivity extends Activity {
 						@Override
 						public void run() {
 							tv_scan_status.setText("正在扫描:"+ appInfo.loadLabel(pm));
-							if (cache >=0) {
+							if (data >0) {
 								View view = View.inflate(getApplicationContext(), R.layout.list_item_cacheinfo,null);
 								TextView tv_name = (TextView) view.findViewById(R.id.tv_app_name);
 								tv_name.setText(appInfo.loadLabel(pm));
 								TextView tv_cache = (TextView) view.findViewById(R.id.tv_cache_size);
 								tv_cache.setText("缓存大小:"+Formatter.formatFileSize(getApplicationContext(), cache));
+								TextView tv_data = (TextView) view.findViewById(R.id.tv_data_size);
+								tv_data.setText("数据大小:"+Formatter.formatFileSize(getApplicationContext(), data));
 								ImageView iv_delete = (ImageView) view.findViewById(R.id.iv_delete);
 								iv_delete.setOnClickListener(new OnClickListener() {
 									
@@ -164,8 +169,9 @@ public class ClearCacheActivity extends Activity {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				return;
+				
 			}
 		}
+		Toast.makeText(getApplicationContext(), "清理完毕", 0).show();
 	}
 }
