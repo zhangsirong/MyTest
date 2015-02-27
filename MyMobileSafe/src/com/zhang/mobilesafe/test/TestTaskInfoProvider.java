@@ -13,7 +13,7 @@ import com.zhang.mobilesafe.engine.TaskInfoProvider;
 
 public class TestTaskInfoProvider extends AndroidTestCase {
 	public void testGetTaskInfos() throws Exception {
-		List<TaskInfo> infos = TaskInfoProvider.getAppInfos(getContext());
+		List<TaskInfo> infos = TaskInfoProvider.getTaskInfos(getContext());
 		for(TaskInfo info:infos){
 			System.out.println(info.toString());
 		}

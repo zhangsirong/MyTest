@@ -94,7 +94,7 @@ public class SplashActivity extends Activity {
 			
 		}
 	
-		AlphaAnimation aa = new AlphaAnimation(0.2f, 1.0f);
+		AlphaAnimation aa = new AlphaAnimation(0.3f, 1.0f);
 		aa.setDuration(500);
 		findViewById(R.id.rl_root_splash).startAnimation(aa);
 	}

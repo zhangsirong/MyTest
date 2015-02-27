@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -29,6 +30,7 @@ import com.zhang.mobliesafe.R;
 public class AntiVirusActivity extends Activity {
 	protected static final int SCANING = 0;
 	protected static final int FINISH = 1;
+	protected static final String TAG = "AntiVirusActivity";
 	private ImageView iv_scan;
 	private ProgressBar progressBar1;
 	private PackageManager pm;
@@ -42,6 +44,7 @@ public class AntiVirusActivity extends Activity {
 				ScanInfo scanInfo = (ScanInfo) msg.obj;
 				TextView tv = new TextView(getApplicationContext());
 				if(scanInfo.isvirus){
+					Log.i(TAG, "发现病毒");
 					tv.setTextColor(Color.RED);
 					tv.setText("发现病毒:"+scanInfo.name);
 				}else{

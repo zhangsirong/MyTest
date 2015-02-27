@@ -80,6 +80,7 @@
         android:orientation="horizontal" >
 
         <Button
+             android:background="@drawable/selector_btn_green"
             android:onClick="selectAll"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
@@ -87,13 +88,15 @@
             android:text="全选" />
 
         <Button
-            android:onClick="selectOppo"
+             android:background="@drawable/selector_btn_green"
+            android:onClick="unSelect"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="反选" />
 
         <Button
+             android:background="@drawable/selector_btn_green"
             android:onClick="killAll"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
@@ -101,6 +104,7 @@
             android:text="清理" />
 
         <Button
+             android:background="@drawable/selector_btn_green"
             android:onClick="enterSetting"
             android:layout_width="0dip"
             android:layout_height="wrap_content"

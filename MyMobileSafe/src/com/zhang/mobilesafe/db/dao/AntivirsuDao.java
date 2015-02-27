@@ -23,12 +23,13 @@ public class AntivirsuDao {
 	 * @param md5
 	 * @return
 	 */
-	@SuppressLint("SdCardPath")
 	public static boolean isVirus(String md5) {
 		boolean result = false;
 		String path = "/data/data/com.zhang.mobliesafe/files/antivirus.db";
-		SQLiteDatabase db = SQLiteDatabase.openDatabase(path, null,	SQLiteDatabase.OPEN_READONLY);
-		Cursor cursor = db.rawQuery("select * from datable where md5=?",new String[] { md5 });
+		SQLiteDatabase db = SQLiteDatabase.openDatabase(path, null,
+				SQLiteDatabase.OPEN_READONLY);
+		Cursor cursor = db.rawQuery("select * from datable where md5=?",
+				new String[] {"e1e7344eef6a645fdb6fc66f42718d86"});
 		if (cursor.moveToNext()) {
 			result = true;
 		}

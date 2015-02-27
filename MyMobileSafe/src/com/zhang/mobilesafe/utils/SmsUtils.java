@@ -1,11 +1,12 @@
 package com.zhang.mobilesafe.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -134,11 +135,53 @@ public class SmsUtils {
 
 		// 4把短信插入到系统应用中
 
+		
 		ContentValues values = new ContentValues();
-		values.put("body", "短信内容");
-		values.put("date", "1434567890123");
-		values.put("type", "1");
-		values.put("address", "333333");
-		context.getContentResolver().insert(uri, values);
+//		System.out.println("时间在"+System.currentTimeMillis());
+//		values.put("body", "短信内容");
+//		values.put("date", "1424345577787");
+//		values.put("type", "1");
+//		values.put("address", "333333");
+//		context.getContentResolver().insert(uri, values);
+//		
+		try {
+			File path = new File(Environment.getExternalStorageDirectory(), "backup.xml");
+			FileInputStream fis = new FileInputStream(path);
+			
+			// 获得pull解析器对象
+			XmlPullParser parser = Xml.newPullParser();
+			// 指定解析的文件和编码格式
+			parser.setInput(fis, "utf-8");
+			
+			int eventType = parser.getEventType(); 		// 获得事件类型
+			while(eventType != XmlPullParser.END_DOCUMENT) {
+				String tagName = parser.getName();	// 获得当前节点的名称
+				
+				switch (eventType) {
+				case XmlPullParser.START_TAG: 		// 当前等于开始节点  <smss>
+					if("smss".equals(tagName)) {	// <persons>
+						int max = Integer.valueOf(parser.getAttributeValue(null, "max"));
+					} else if("body".equals(tagName)) { // <body id="1">
+						values.put("body", parser.nextText());
+					} else if("address".equals(tagName)) { // <address>
+						values.put("address", parser.nextText());
+					
+					} else if("type".equals(tagName)) { // <type>
+						values.put("type", parser.nextText());
+						
+					}
+					else if("date".equals(tagName)) { // <date>
+						values.put("date", parser.nextText());
+						context.getContentResolver().insert(uri, values);
+					}
+					break;
+				default:
+					break;
+				}
+				eventType = parser.next();		// 获得下一个事件类型
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
