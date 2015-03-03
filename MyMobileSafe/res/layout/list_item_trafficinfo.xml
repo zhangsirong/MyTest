@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65dip" >
+
+    <ImageView
+        android:id="@+id/iv_traffic_icon"
+        android:layout_width="55dip"
+        android:layout_height="55dip"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="5dip"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_traffic_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="3dip"
+        android:layout_toRightOf="@id/iv_traffic_icon"
+        android:text="程序名称"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_traffic_tx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_traffic_name"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@id/iv_traffic_icon"
+        android:text="上传:"
+        android:textColor="#99000000"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/tv_traffic_rx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_traffic_name"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@id/tv_traffic_tx"
+        android:text="下载:"
+        android:textColor="#99000000"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/tv_traffic_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_traffic_name"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@id/tv_traffic_rx"
+        android:text="总流量"
+        android:textColor="#99000000"
+        android:textSize="15sp" />
+</RelativeLayout>

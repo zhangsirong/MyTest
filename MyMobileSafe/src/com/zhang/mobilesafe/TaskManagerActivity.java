@@ -18,6 +18,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,7 +40,7 @@ public class TaskManagerActivity extends Activity {
 	private LinearLayout ll_loading;
 	private ListView lv_task_manager;
 	private TextView tv_status;
-
+	
 	private List<TaskInfo> allTaskInfos;
 	private List<TaskInfo> userTaskInfos;
 	private List<TaskInfo> systemTaskInfos;
@@ -50,13 +51,13 @@ public class TaskManagerActivity extends Activity {
 	private long availMem;
 	private long totalMem;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_task_manager);
 		tv_mem_info = (TextView) findViewById(R.id.tv_mem_info);
 		tv_process_count = (TextView) findViewById(R.id.tv_process_count);
-
 		ll_loading = (LinearLayout) findViewById(R.id.ll_loading);
 		lv_task_manager = (ListView) findViewById(R.id.lv_task_manager);
 		fillData();

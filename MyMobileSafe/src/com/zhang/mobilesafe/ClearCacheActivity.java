@@ -2,6 +2,7 @@ package com.zhang.mobilesafe;
 
 import java.lang.reflect.Method;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.ApplicationInfo;
@@ -11,10 +12,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PackageStats;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.RemoteException;
 import android.os.UserHandle;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -22,14 +27,26 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.zhang.mobilesafe.AntiVirusActivity.ScanInfo;
 import com.zhang.mobliesafe.R;
 
 public class ClearCacheActivity extends Activity {
+	protected static final int FINISH = 1;
 	private ProgressBar pb;
 	private TextView tv_scan_status;
 	private PackageManager pm;
 	private LinearLayout ll_container;
 	private int progress = 0;
+	private Handler handler = new Handler(){
+	@Override
+		public void handleMessage(Message msg) {
+		switch (msg.what) {
+		case FINISH:
+			tv_scan_status.setText("…®√ËÕÍ±œ");
+			break;
+		}	}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +93,10 @@ public class ClearCacheActivity extends Activity {
 					}
 					progress++;
 					pb.setProgress(progress);
-
 				}
-				
-				
+				Message msg = Message.obtain();
+				msg.what = FINISH;
+				handler.sendMessage(msg);
 
 			};
 		}.start();
@@ -135,7 +152,6 @@ public class ClearCacheActivity extends Activity {
 							}
 						}
 					});
-				
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();
 			}
